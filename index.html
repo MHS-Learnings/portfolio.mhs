@@ -1,1 +1,912 @@
-# portfolio.mhs
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muhammad Hamd Sultan | AI Student & Professional Portfolio</title>
+    <meta name="description" content="Official professional portfolio of Muhammad Hamd Sultan, BS Artificial Intelligence student at The University of Lahore. Aspiring administrative, data support, and academic professional.">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#123B32',
+                        secondary: '#1D5C4A',
+                        accent: '#D6B56D',
+                        lightbg: '#F7F8F5',
+                        darkbg: '#101916',
+                        darkcard: '#182622'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Tailwind Typography Plugin alternative / Custom styles -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(18, 59, 50, 0.1);
+        }
+        .dark .glass-card {
+            background: rgba(24, 38, 34, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(214, 181, 109, 0.15);
+        }
+    </style>
+</head>
+<body class="bg-[#F7F8F5] text-[#17231F] dark:bg-[#101916] dark:text-[#E2E8F0] transition-colors duration-300 min-h-screen flex flex-col justify-between selection:bg-[#D6B56D]/30 selection:text-[#123B32] dark:selection:text-[#D6B56D]">
+
+    <!-- Background Canvas for AI Constellation Animation -->
+    <canvas id="bg-canvas" class="fixed inset-0 pointer-events-none z-0 opacity-40 dark:opacity-25"></canvas>
+
+    <div class="relative z-10 flex flex-col min-h-screen justify-between">
+        <!-- Navigation Bar -->
+        <header id="navbar" class="sticky top-0 z-50 transition-all duration-300 backdrop-blur-md bg-[#F7F8F5]/90 dark:bg-[#101916]/90 border-b border-[#123B32]/10 dark:border-[#D6B56D]/10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+                <!-- Logo / Name -->
+                <a href="#home" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#123B32] to-[#1D5C4A] dark:from-[#D6B56D] dark:to-[#1D5C4A] flex items-center justify-center text-white dark:text-[#101916] font-bold text-lg shadow-md group-hover:scale-105 transition-transform">
+                        HS
+                    </div>
+                    <div>
+                        <span class="font-bold text-lg tracking-tight block text-[#123B32] dark:text-white">Muhammad Hamd Sultan</span>
+                        <span class="text-xs text-[#1D5C4A] dark:text-[#D6B56D] font-medium block">BS AI • UOL</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Nav Links -->
+                <nav class="hidden md:flex items-center gap-1 lg:gap-2">
+                    <a href="#home" class="px-3 py-2 rounded-lg text-sm font-medium hover:bg-[#123B32]/10 dark:hover:bg-[#D6B56D]/10 transition-colors">Home</a>
+                    <a href="#about" class="px-3 py-2 rounded-lg text-sm font-medium hover:bg-[#123B32]/10 dark:hover:bg-[#D6B56D]/10 transition-colors">About</a>
+                    <a href="#skills" class="px-3 py-2 rounded-lg text-sm font-medium hover:bg-[#123B32]/10 dark:hover:bg-[#D6B56D]/10 transition-colors">Skills</a>
+                    <a href="#experience" class="px-3 py-2 rounded-lg text-sm font-medium hover:bg-[#123B32]/10 dark:hover:bg-[#D6B56D]/10 transition-colors">Experience</a>
+                    <a href="#education" class="px-3 py-2 rounded-lg text-sm font-medium hover:bg-[#123B32]/10 dark:hover:bg-[#D6B56D]/10 transition-colors">Education</a>
+                    <a href="#achievements" class="px-3 py-2 rounded-lg text-sm font-medium hover:bg-[#123B32]/10 dark:hover:bg-[#D6B56D]/10 transition-colors">Achievements</a>
+                    <a href="#opportunities" class="px-3 py-2 rounded-lg text-sm font-medium hover:bg-[#123B32]/10 dark:hover:bg-[#D6B56D]/10 transition-colors">Opportunities</a>
+                    <a href="#contact" class="px-3 py-2 rounded-lg text-sm font-medium hover:bg-[#123B32]/10 dark:hover:bg-[#D6B56D]/10 transition-colors">Contact</a>
+                </nav>
+
+                <!-- Actions: Theme Toggle & CV Download / Mobile Menu Toggle -->
+                <div class="flex items-center gap-3">
+                    <button id="theme-toggle" aria-label="Toggle Theme" class="p-2.5 rounded-xl bg-white dark:bg-[#182622] border border-[#123B32]/10 dark:border-[#D6B56D]/20 text-[#123B32] dark:text-[#D6B56D] hover:scale-105 transition-all shadow-sm">
+                        <i data-lucide="sun" class="w-5 h-5 hidden dark:block"></i>
+                        <i data-lucide="moon" class="w-5 h-5 block dark:hidden"></i>
+                    </button>
+
+                    <button onclick="openCvModal()" class="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#123B32] dark:bg-[#D6B56D] text-white dark:text-[#101916] text-sm font-semibold shadow-md hover:bg-[#1D5C4A] dark:hover:bg-[#e4c77d] transition-all">
+                        <i data-lucide="download" class="w-4 h-4"></i>
+                        <span>Download CV</span>
+                    </button>
+
+                    <button id="mobile-menu-button" aria-label="Open Menu" class="md:hidden p-2.5 rounded-xl bg-white dark:bg-[#182622] border border-[#123B32]/10 dark:border-[#D6B56D]/20 text-[#123B32] dark:text-[#D6B56D]">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Navigation Drawer -->
+            <div id="mobile-menu" class="hidden md:hidden border-t border-[#123B32]/10 dark:border-[#D6B56D]/10 bg-[#F7F8F5] dark:bg-[#101916] px-4 pt-3 pb-5 space-y-2 shadow-xl">
+                <a href="#home" class="mobile-link block px-3 py-2 rounded-lg text-base font-medium hover:bg-[#123B32]/10 dark:hover:bg-[#D6B56D]/10">Home</a>
+                <a href="#about" class="mobile-link block px-3 py-2 rounded-lg text-base font-medium hover:bg-[#123B32]/10 dark:hover:bg-[#D6B56D]/10">About</a>
+                <a href="#skills" class="mobile-link block px-3 py-2 rounded-lg text-base font-medium hover:bg-[#123B32]/10 dark:hover:bg-[#D6B56D]/10">Skills</a>
+                <a href="#experience" class="mobile-link block px-3 py-2 rounded-lg text-base font-medium hover:bg-[#123B32]/10 dark:hover:bg-[#D6B56D]/10">Experience</a>
+                <a href="#education" class="mobile-link block px-3 py-2 rounded-lg text-base font-medium hover:bg-[#123B32]/10 dark:hover:bg-[#D6B56D]/10">Education</a>
+                <a href="#achievements" class="mobile-link block px-3 py-2 rounded-lg text-base font-medium hover:bg-[#123B32]/10 dark:hover:bg-[#D6B56D]/10">Achievements</a>
+                <a href="#opportunities" class="mobile-link block px-3 py-2 rounded-lg text-base font-medium hover:bg-[#123B32]/10 dark:hover:bg-[#D6B56D]/10">Opportunities</a>
+                <a href="#contact" class="mobile-link block px-3 py-2 rounded-lg text-base font-medium hover:bg-[#123B32]/10 dark:hover:bg-[#D6B56D]/10">Contact</a>
+                <div class="pt-2">
+                    <button onclick="openCvModal()" class="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-[#123B32] dark:bg-[#D6B56D] text-white dark:text-[#101916] text-sm font-semibold shadow-md">
+                        <i data-lucide="download" class="w-4 h-4"></i>
+                        <span>Download CV</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content Container -->
+        <main class="flex-grow">
+            
+            <!-- Hero Section -->
+            <section id="home" class="relative py-20 lg:py-32 overflow-hidden">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                        
+                        <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#123B32]/10 dark:bg-[#D6B56D]/10 border border-[#123B32]/20 dark:border-[#D6B56D]/30 text-[#123B32] dark:text-[#D6B56D] text-xs font-medium tracking-wide">
+                                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                                Open to Suitable Part-Time Opportunities & Assistant Roles
+                            </div>
+
+                            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#17231F] dark:text-white">
+                                Hi, I'm <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#123B32] to-[#1D5C4A] dark:from-[#D6B56D] dark:to-emerald-400">Muhammad Hamd Sultan</span>
+                            </h1>
+
+                            <p class="text-lg sm:text-xl font-medium text-[#1D5C4A] dark:text-emerald-300">
+                                BS Artificial Intelligence Student | Aspiring Administrative & Data Support Professional
+                            </p>
+
+                            <p class="text-base sm:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                                Motivated university student with proven teaching experience, solid computer skills, and a strong professional interest in academic administration, data entry, student assistance, and institutional support.
+                            </p>
+
+                            <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-4">
+                                <a href="#opportunities" class="px-6 py-3.5 rounded-xl bg-[#123B32] dark:bg-[#D6B56D] text-white dark:text-[#101916] font-semibold text-sm shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all flex items-center gap-2">
+                                    <span>Explore My Portfolio</span>
+                                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                                </a>
+                                <button onclick="openCvModal()" class="px-6 py-3.5 rounded-xl bg-white dark:bg-[#182622] border border-[#123B32]/20 dark:border-[#D6B56D]/30 text-[#123B32] dark:text-[#D6B56D] font-semibold text-sm shadow-sm hover:bg-[#123B32]/5 dark:hover:bg-[#D6B56D]/10 transition-all flex items-center gap-2">
+                                    <i data-lucide="file-text" class="w-4 h-4"></i>
+                                    <span>Download My CV</span>
+                                </button>
+                                <a href="#contact" class="px-6 py-3.5 rounded-xl bg-transparent text-[#123B32] dark:text-[#D6B56D] font-semibold text-sm hover:underline flex items-center gap-1">
+                                    <span>Contact Me</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Hero Avatar / Profile Card Placeholder -->
+                        <div class="lg:col-span-5 flex justify-center">
+                            <div class="relative w-72 h-72 sm:w-80 sm:h-80 rounded-3xl p-3 glass-card shadow-2xl group">
+                                <div class="absolute inset-0 rounded-3xl bg-gradient-to-tr from-[#123B32]/20 to-[#D6B56D]/20 animate-pulse"></div>
+                                <div class="relative w-full h-full rounded-2xl bg-gradient-to-br from-[#123B32] to-[#1D5C4A] dark:from-[#182622] dark:to-[#123B32] flex flex-col items-center justify-center text-white overflow-hidden shadow-inner border border-white/10">
+                                    <div class="w-28 h-28 rounded-full bg-[#D6B56D]/20 border-2 border-[#D6B56D] flex items-center justify-center text-4xl font-bold mb-3 text-[#D6B56D]">
+                                        MHS
+                                    </div>
+                                    <h3 class="font-bold text-lg text-white">Muhammad Hamd Sultan</h3>
+                                    <p class="text-xs text-[#D6B56D] font-medium mt-1">The University of Lahore</p>
+                                    <div class="mt-4 px-3 py-1 rounded-full bg-white/10 text-xs font-light text-gray-200">
+                                        BS Artificial Intelligence
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- About Section -->
+            <section id="about" class="py-20 bg-white/50 dark:bg-[#182622]/40 border-y border-[#123B32]/5 dark:border-[#D6B56D]/10">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-3xl mx-auto mb-16">
+                        <h2 class="text-3xl sm:text-4xl font-bold text-[#123B32] dark:text-[#D6B56D] tracking-tight">About Me</h2>
+                        <div class="w-16 h-1 bg-[#D6B56D] mx-auto mt-3 rounded-full"></div>
+                        <p class="mt-4 text-gray-600 dark:text-gray-300 text-base sm:text-lg">
+                            Dedicated student, educator, and future technology professional based in Lahore.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+                        <div class="space-y-6 glass-card p-8 rounded-3xl shadow-sm">
+                            <h3 class="text-2xl font-semibold text-[#123B32] dark:text-white">Academic Journey & Vision</h3>
+                            <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
+                                I am currently pursuing a Bachelor of Science in Artificial Intelligence at <strong>The University of Lahore</strong>, building upon a strong foundation in FSc Pre-Medical completed at KIPS College, Lahore.
+                            </p>
+                            <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
+                                Alongside my studies, I have accumulated valuable practical teaching experience in science and mathematics, developing exceptional communication, organization, and classroom management skills that translate seamlessly into administrative, data management, and assistant roles.
+                            </p>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="glass-card p-6 rounded-2xl shadow-sm border border-[#123B32]/10 dark:border-[#D6B56D]/10">
+                                <div class="w-12 h-12 rounded-xl bg-[#123B32]/10 dark:bg-[#D6B56D]/10 flex items-center justify-center text-[#123B32] dark:text-[#D6B56D] mb-4">
+                                    <i data-lucide="shield-check" class="w-6 h-6"></i>
+                                </div>
+                                <h4 class="font-semibold text-lg mb-2 text-[#123B32] dark:text-white">Reliability</h4>
+                                <p class="text-sm text-gray-600 dark:text-gray-300">Committed to punctuality, accuracy, and thorough task execution in every professional responsibility.</p>
+                            </div>
+
+                            <div class="glass-card p-6 rounded-2xl shadow-sm border border-[#123B32]/10 dark:border-[#D6B56D]/10">
+                                <div class="w-12 h-12 rounded-xl bg-[#123B32]/10 dark:bg-[#D6B56D]/10 flex items-center justify-center text-[#123B32] dark:text-[#D6B56D] mb-4">
+                                    <i data-lucide="book-open" class="w-6 h-6"></i>
+                                </div>
+                                <h4 class="font-semibold text-lg mb-2 text-[#123B32] dark:text-white">Fast Learner</h4>
+                                <p class="text-sm text-gray-600 dark:text-gray-300">Quickly adapt to new software tools, institutional workflows, and office management procedures.</p>
+                            </div>
+
+                            <div class="glass-card p-6 rounded-2xl shadow-sm border border-[#123B32]/10 dark:border-[#D6B56D]/10">
+                                <div class="w-12 h-12 rounded-xl bg-[#123B32]/10 dark:bg-[#D6B56D]/10 flex items-center justify-center text-[#123B32] dark:text-[#D6B56D] mb-4">
+                                    <i data-lucide="users" class="w-6 h-6"></i>
+                                </div>
+                                <h4 class="font-semibold text-lg mb-2 text-[#123B32] dark:text-white">Communication</h4>
+                                <p class="text-sm text-gray-600 dark:text-gray-300">Clear and professional interpersonal communication with students, peers, and academic staff.</p>
+                            </div>
+
+                            <div class="glass-card p-6 rounded-2xl shadow-sm border border-[#123B32]/10 dark:border-[#D6B56D]/10">
+                                <div class="w-12 h-12 rounded-xl bg-[#123B32]/10 dark:bg-[#D6B56D]/10 flex items-center justify-center text-[#123B32] dark:text-[#D6B56D] mb-4">
+                                    <i data-lucide="cpu" class="w-6 h-6"></i>
+                                </div>
+                                <h4 class="font-semibold text-lg mb-2 text-[#123B32] dark:text-white">Tech-Oriented</h4>
+                                <p class="text-sm text-gray-600 dark:text-gray-300">Leveraging modern computer operations and digital tools to maximize academic and office productivity.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Skills Section -->
+            <section id="skills" class="py-20">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-3xl mx-auto mb-16">
+                        <h2 class="text-3xl sm:text-4xl font-bold text-[#123B32] dark:text-[#D6B56D] tracking-tight">Skills & Competencies</h2>
+                        <div class="w-16 h-1 bg-[#D6B56D] mx-auto mt-3 rounded-full"></div>
+                        <p class="mt-4 text-gray-600 dark:text-gray-300 text-base sm:text-lg">
+                            Core technical, administrative, and academic proficiencies.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        
+                        <!-- Skill Card 1 -->
+                        <div class="glass-card p-6 rounded-2xl shadow-sm hover:shadow-md transition-all border border-[#123B32]/10 dark:border-[#D6B56D]/10 group">
+                            <div class="w-10 h-10 rounded-lg bg-[#123B32]/10 dark:bg-[#D6B56D]/10 text-[#123B32] dark:text-[#D6B56D] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                                <i data-lucide="monitor" class="w-5 h-5"></i>
+                            </div>
+                            <h3 class="font-bold text-lg mb-2 text-[#123B32] dark:text-white">Basic Computer Operations</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-300">File management, system troubleshooting basics, operating systems navigation, and utility tools.</p>
+                        </div>
+
+                        <!-- Skill Card 2 -->
+                        <div class="glass-card p-6 rounded-2xl shadow-sm hover:shadow-md transition-all border border-[#123B32]/10 dark:border-[#D6B56D]/10 group">
+                            <div class="w-10 h-10 rounded-lg bg-[#123B32]/10 dark:bg-[#D6B56D]/10 text-[#123B32] dark:text-[#D6B56D] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                                <i data-lucide="file-spreadsheet" class="w-5 h-5"></i>
+                            </div>
+                            <h3 class="font-bold text-lg mb-2 text-[#123B32] dark:text-white">MS Office Suite</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-300">Proficient in Microsoft Word, Excel spreadsheets, PowerPoint presentations, and document formatting.</p>
+                        </div>
+
+                        <!-- Skill Card 3 -->
+                        <div class="glass-card p-6 rounded-2xl shadow-sm hover:shadow-md transition-all border border-[#123B32]/10 dark:border-[#D6B56D]/10 group">
+                            <div class="w-10 h-10 rounded-lg bg-[#123B32]/10 dark:bg-[#D6B56D]/10 text-[#123B32] dark:text-[#D6B56D] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                                <i data-lucide="search" class="w-5 h-5"></i>
+                            </div>
+                            <h3 class="font-bold text-lg mb-2 text-[#123B32] dark:text-white">Internet Research</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-300">Advanced web searching, fact-checking, literature gathering, and structured online information synthesis.</p>
+                        </div>
+
+                        <!-- Skill Card 4 -->
+                        <div class="glass-card p-6 rounded-2xl shadow-sm hover:shadow-md transition-all border border-[#123B32]/10 dark:border-[#D6B56D]/10 group">
+                            <div class="w-10 h-10 rounded-lg bg-[#123B32]/10 dark:bg-[#D6B56D]/10 text-[#123B32] dark:text-[#D6B56D] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                                <i data-lucide="database" class="w-5 h-5"></i>
+                            </div>
+                            <h3 class="font-bold text-lg mb-2 text-[#123B32] dark:text-white">Data Entry Fundamentals</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-300">Accurate typing, record keeping, database updating, and meticulous attention to numeric/text details.</p>
+                        </div>
+
+                        <!-- Skill Card 5 -->
+                        <div class="glass-card p-6 rounded-2xl shadow-sm hover:shadow-md transition-all border border-[#123B32]/10 dark:border-[#D6B56D]/10 group">
+                            <div class="w-10 h-10 rounded-lg bg-[#123B32]/10 dark:bg-[#D6B56D]/10 text-[#123B32] dark:text-[#D6B56D] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                                <i data-lucide="message-square" class="w-5 h-5"></i>
+                            </div>
+                            <h3 class="font-bold text-lg mb-2 text-[#123B32] dark:text-white">Communication</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-300">Clear verbal and written communication in English and Urdu, facilitating effective collaboration.</p>
+                        </div>
+
+                        <!-- Skill Card 6 -->
+                        <div class="glass-card p-6 rounded-2xl shadow-sm hover:shadow-md transition-all border border-[#123B32]/10 dark:border-[#D6B56D]/10 group">
+                            <div class="w-10 h-10 rounded-lg bg-[#123B32]/10 dark:bg-[#D6B56D]/10 text-[#123B32] dark:text-[#D6B56D] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                                <i data-lucide="folder-kanban" class="w-5 h-5"></i>
+                            </div>
+                            <h3 class="font-bold text-lg mb-2 text-[#123B32] dark:text-white">Organization & Planning</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-300">Managing schedules, organizing institutional documents, and prioritizing academic/administrative tasks.</p>
+                        </div>
+
+                        <!-- Skill Card 7 -->
+                        <div class="glass-card p-6 rounded-2xl shadow-sm hover:shadow-md transition-all border border-[#123B32]/10 dark:border-[#D6B56D]/10 group">
+                            <div class="w-10 h-10 rounded-lg bg-[#123B32]/10 dark:bg-[#D6B56D]/10 text-[#123B32] dark:text-[#D6B56D] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                                <i data-lucide="users-2" class="w-5 h-5"></i>
+                            </div>
+                            <h3 class="font-bold text-lg mb-2 text-[#123B32] dark:text-white">Classroom Management</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-300">Maintaining discipline, guiding students constructively, and facilitating structured study sessions.</p>
+                        </div>
+
+                        <!-- Skill Card 8 -->
+                        <div class="glass-card p-6 rounded-2xl shadow-sm hover:shadow-md transition-all border border-[#123B32]/10 dark:border-[#D6B56D]/10 group">
+                            <div class="w-10 h-10 rounded-lg bg-[#123B32]/10 dark:bg-[#D6B56D]/10 text-[#123B32] dark:text-[#D6B56D] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                                <i data-lucide="graduation-cap" class="w-5 h-5"></i>
+                            </div>
+                            <h3 class="font-bold text-lg mb-2 text-[#123B32] dark:text-white">Science & Math Teaching</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-300">Expertise in teaching Biology, Chemistry, and Mathematics to school-level and FSc students.</p>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- Experience Section -->
+            <section id="experience" class="py-20 bg-white/50 dark:bg-[#182622]/40 border-y border-[#123B32]/5 dark:border-[#D6B56D]/10">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-3xl mx-auto mb-16">
+                        <h2 class="text-3xl sm:text-4xl font-bold text-[#123B32] dark:text-[#D6B56D] tracking-tight">Professional Experience</h2>
+                        <div class="w-16 h-1 bg-[#D6B56D] mx-auto mt-3 rounded-full"></div>
+                        <p class="mt-4 text-gray-600 dark:text-gray-300 text-base sm:text-lg">
+                            Teaching, tutoring, and academic support roles.
+                        </p>
+                    </div>
+
+                    <div class="max-w-3xl mx-auto space-y-8">
+                        
+                        <!-- Experience Item 1 -->
+                        <div class="glass-card p-8 rounded-3xl shadow-sm relative border-l-4 border-l-[#123B32] dark:border-l-[#D6B56D]">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+                                <h3 class="text-xl font-bold text-[#123B32] dark:text-white">Science Teacher & Home Tutor</h3>
+                                <span class="px-3 py-1 rounded-full bg-[#123B32]/10 dark:bg-[#D6B56D]/10 text-[#123B32] dark:text-[#D6B56D] text-xs font-semibold w-fit">Present / Ongoing</span>
+                            </div>
+                            <p class="text-sm font-medium text-[#1D5C4A] dark:text-emerald-300 mb-4">Lahore, Pakistan</p>
+                            <ul class="space-y-2 text-gray-600 dark:text-gray-300 text-sm list-disc list-inside">
+                                <li>Teaching Biology, Chemistry, and Mathematics to Matric and F.Sc level students.</li>
+                                <li>Evaluating student examination papers, providing constructive academic feedback, and tracking student progress.</li>
+                                <li>Developing structured lesson plans, clarifying complex scientific concepts, and mentoring learners for academic excellence.</li>
+                                <li>Managing student discipline and creating an encouraging, organized learning environment.</li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- Education Section -->
+            <section id="education" class="py-20">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-3xl mx-auto mb-16">
+                        <h2 class="text-3xl sm:text-4xl font-bold text-[#123B32] dark:text-[#D6B56D] tracking-tight">Education</h2>
+                        <div class="w-16 h-1 bg-[#D6B56D] mx-auto mt-3 rounded-full"></div>
+                        <p class="mt-4 text-gray-600 dark:text-gray-300 text-base sm:text-lg">
+                            Academic background and current university enrollment.
+                        </p>
+                    </div>
+
+                    <div class="max-w-3xl mx-auto space-y-8">
+                        
+                        <!-- Education 1 -->
+                        <div class="glass-card p-8 rounded-3xl shadow-sm border-l-4 border-l-[#D6B56D] relative">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
+                                <h3 class="text-xl font-bold text-[#123B32] dark:text-white">BS Artificial Intelligence (First Semester)</h3>
+                                <span class="px-3 py-1 rounded-full bg-[#123B32] text-white dark:bg-[#D6B56D] dark:text-[#101916] text-xs font-semibold w-fit">Current</span>
+                            </div>
+                            <p class="text-sm font-semibold text-[#1D5C4A] dark:text-emerald-300 mb-4">The University of Lahore</p>
+                            <p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
+                                Currently enrolled in the Bachelor of Science program in Artificial Intelligence, studying core foundations of computing, logic, mathematics, and intelligent systems.
+                            </p>
+                        </div>
+
+                        <!-- Education 2 -->
+                        <div class="glass-card p-8 rounded-3xl shadow-sm border-l-4 border-l-[#123B32] dark:border-l-[#D6B56D]">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
+                                <h3 class="text-xl font-bold text-[#123B32] dark:text-white">FSc Pre-Medical</h3>
+                                <span class="px-3 py-1 rounded-full bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-xs font-semibold w-fit">Completed 2025</span>
+                            </div>
+                            <p class="text-sm font-semibold text-[#1D5C4A] dark:text-emerald-300 mb-4">KIPS College, Thokar Campus, Lahore</p>
+                            <p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
+                                Completed intermediate pre-medical education with rigorous academic training in biology, chemistry, physics, and mathematics.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- Achievements & Courses Section -->
+            <section id="achievements" class="py-20 bg-white/50 dark:bg-[#182622]/40 border-y border-[#123B32]/5 dark:border-[#D6B56D]/10">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-3xl mx-auto mb-16">
+                        <h2 class="text-3xl sm:text-4xl font-bold text-[#123B32] dark:text-[#D6B56D] tracking-tight">Achievements & Certificates</h2>
+                        <div class="w-16 h-1 bg-[#D6B56D] mx-auto mt-3 rounded-full"></div>
+                        <p class="mt-4 text-gray-600 dark:text-gray-300 text-base sm:text-lg">
+                            Verified certificates, workshops, and academic milestones. Manage or add new items below.
+                        </p>
+                    </div>
+
+                    <!-- Add Certificate Button & Dynamic Container -->
+                    <div class="max-w-5xl mx-auto mb-8 flex justify-end">
+                        <button onclick="openAddCertModal()" class="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#123B32] dark:bg-[#D6B56D] text-white dark:text-[#101916] text-sm font-semibold shadow-md hover:opacity-90 transition-all">
+                            <i data-lucide="plus" class="w-4 h-4"></i>
+                            <span>Add Certificate / Award</span>
+                        </button>
+                    </div>
+
+                    <div id="certificates-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                        <!-- Initial Default Certificate Card -->
+                        <div class="glass-card p-6 rounded-2xl shadow-sm border border-[#123B32]/10 dark:border-[#D6B56D]/10 flex flex-col justify-between">
+                            <div>
+                                <div class="w-10 h-10 rounded-lg bg-[#D6B56D]/20 text-[#123B32] dark:text-[#D6B56D] flex items-center justify-center mb-4">
+                                    <i data-lucide="award" class="w-5 h-5"></i>
+                                </div>
+                                <h3 class="font-bold text-lg mb-1 text-[#123B32] dark:text-white">FSc Pre-Medical Completion</h3>
+                                <p class="text-xs text-[#1D5C4A] dark:text-emerald-300 font-medium mb-3">KIPS College, Thokar Campus, Lahore • 2025</p>
+                                <p class="text-sm text-gray-600 dark:text-gray-300">Successfully completed intermediate education with comprehensive coursework in natural sciences.</p>
+                            </div>
+                            <div class="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700 flex items-center justify-between">
+                                <span class="text-xs text-gray-500">Verified Academic Record</span>
+                                <span class="text-xs font-semibold text-[#123B32] dark:text-[#D6B56D]">Official</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Opportunity Interests Section -->
+            <section id="opportunities" class="py-20">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-3xl mx-auto mb-16">
+                        <h2 class="text-3xl sm:text-4xl font-bold text-[#123B32] dark:text-[#D6B56D] tracking-tight">Opportunity Interests</h2>
+                        <div class="w-16 h-1 bg-[#D6B56D] mx-auto mt-3 rounded-full"></div>
+                        <p class="mt-4 text-gray-600 dark:text-gray-300 text-base sm:text-lg">
+                            Roles I am actively seeking while continuing my BS Artificial Intelligence studies at The University of Lahore.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                        
+                        <div class="glass-card p-6 rounded-2xl shadow-sm border border-[#123B32]/10 dark:border-[#D6B56D]/10">
+                            <div class="w-10 h-10 rounded-lg bg-[#123B32]/10 dark:bg-[#D6B56D]/10 text-[#123B32] dark:text-[#D6B56D] flex items-center justify-center mb-4">
+                                <i data-lucide="briefcase" class="w-5 h-5"></i>
+                            </div>
+                            <h3 class="font-bold text-lg mb-2 text-[#123B32] dark:text-white">University Office Assistant</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-300">Supporting departmental offices, managing records, assisting faculty, and handling student inquiries.</p>
+                        </div>
+
+                        <div class="glass-card p-6 rounded-2xl shadow-sm border border-[#123B32]/10 dark:border-[#D6B56D]/10">
+                            <div class="w-10 h-10 rounded-lg bg-[#123B32]/10 dark:bg-[#D6B56D]/10 text-[#123B32] dark:text-[#D6B56D] flex items-center justify-center mb-4">
+                                <i data-lucide="clipboard-list" class="w-5 h-5"></i>
+                            </div>
+                            <h3 class="font-bold text-lg mb-2 text-[#123B32] dark:text-white">Administrative Support Assistant</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-300">General office coordination, scheduling meetings, drafting correspondence, and organizing files.</p>
+                        </div>
+
+                        <div class="glass-card p-6 rounded-2xl shadow-sm border border-[#123B32]/10 dark:border-[#D6B56D]/10">
+                            <div class="w-10 h-10 rounded-lg bg-[#123B32]/10 dark:bg-[#D6B56D]/10 text-[#123B32] dark:text-[#D6B56D] flex items-center justify-center mb-4">
+                                <i data-lucide="file-spreadsheet" class="w-5 h-5"></i>
+                            </div>
+                            <h3 class="font-bold text-lg mb-2 text-[#123B32] dark:text-white">Data Entry Assistant</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-300">Precise data input into spreadsheets or databases, digitizing documents, and data verification.</p>
+                        </div>
+
+                        <div class="glass-card p-6 rounded-2xl shadow-sm border border-[#123B32]/10 dark:border-[#D6B56D]/10">
+                            <div class="w-10 h-10 rounded-lg bg-[#123B32]/10 dark:bg-[#D6B56D]/10 text-[#123B32] dark:text-[#D6B56D] flex items-center justify-center mb-4">
+                                <i data-lucide="user-check" class="w-5 h-5"></i>
+                            </div>
+                            <h3 class="font-bold text-lg mb-2 text-[#123B32] dark:text-white">Student Assistant Roles</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-300">Assisting campus libraries, examination cells, or registration desks with reliability and diligence.</p>
+                        </div>
+
+                        <div class="glass-card p-6 rounded-2xl shadow-sm border border-[#123B32]/10 dark:border-[#D6B56D]/10">
+                            <div class="w-10 h-10 rounded-lg bg-[#123B32]/10 dark:bg-[#D6B56D]/10 text-[#123B32] dark:text-[#D6B56D] flex items-center justify-center mb-4">
+                                <i data-lucide="laptop" class="w-5 h-5"></i>
+                            </div>
+                            <h3 class="font-bold text-lg mb-2 text-[#123B32] dark:text-white">Computer Lab Support Assistant</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-300">Maintaining lab equipment order, assisting students with software tools, and managing lab schedules.</p>
+                        </div>
+
+                        <div class="glass-card p-6 rounded-2xl shadow-sm border border-[#123B32]/10 dark:border-[#D6B56D]/10">
+                            <div class="w-10 h-10 rounded-lg bg-[#123B32]/10 dark:bg-[#D6B56D]/10 text-[#123B32] dark:text-[#D6B56D] flex items-center justify-center mb-4">
+                                <i data-lucide="award" class="w-5 h-5"></i>
+                            </div>
+                            <h3 class="font-bold text-lg mb-2 text-[#123B32] dark:text-white">Suitable Part-Time Intern</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-300">Seeking part-time internships in administrative, tech-support, or academic assistance domains.</p>
+                        </div>
+
+                    </div>
+
+                    <div class="mt-12 max-w-3xl mx-auto glass-card p-6 rounded-2xl text-center border border-[#123B32]/10 dark:border-[#D6B56D]/10">
+                        <p class="text-sm text-gray-700 dark:text-gray-300 font-medium">
+                            💡 <span class="font-semibold text-[#123B32] dark:text-[#D6B56D]">Professional Commitment:</span> Eager to contribute responsibly, learn continuously, and support institutional operations while maintaining top academic standards at The University of Lahore.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section id="contact" class="py-20 bg-white/50 dark:bg-[#182622]/40 border-t border-[#123B32]/5 dark:border-[#D6B56D]/10">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-3xl mx-auto mb-16">
+                        <h2 class="text-3xl sm:text-4xl font-bold text-[#123B32] dark:text-[#D6B56D] tracking-tight">Get in Touch</h2>
+                        <div class="w-16 h-1 bg-[#D6B56D] mx-auto mt-3 rounded-full"></div>
+                        <p class="mt-4 text-gray-600 dark:text-gray-300 text-base sm:text-lg">
+                            Have an opportunity or inquiry? Send a message directly.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 max-w-5xl mx-auto">
+                        
+                        <!-- Contact Info Column -->
+                        <div class="lg:col-span-5 space-y-6">
+                            <div class="glass-card p-8 rounded-3xl shadow-sm space-y-6 border border-[#123B32]/10 dark:border-[#D6B56D]/10">
+                                <h3 class="text-2xl font-bold text-[#123B32] dark:text-white">Contact Information</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-300">
+                                    Feel free to reach out for part-time roles, administrative positions, tutoring inquiries, or academic collaborations in Lahore.
+                                </p>
+
+                                <div class="space-y-4 pt-2">
+                                    <div class="flex items-center gap-4">
+                                        <div class="w-12 h-12 rounded-xl bg-[#123B32]/10 dark:bg-[#D6B56D]/10 text-[#123B32] dark:text-[#D6B56D] flex items-center justify-center shrink-0">
+                                            <i data-lucide="mail" class="w-5 h-5"></i>
+                                        </div>
+                                        <div>
+                                            <p class="text-xs text-gray-500 font-medium">Email Address</p>
+                                            <a href="mailto:hamdsultan.ai@gmail.com" class="text-sm font-semibold text-[#123B32] dark:text-[#D6B56D] hover:underline">hamdsultan.ai@gmail.com</a>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-center gap-4">
+                                        <div class="w-12 h-12 rounded-xl bg-[#123B32]/10 dark:bg-[#D6B56D]/10 text-[#123B32] dark:text-[#D6B56D] flex items-center justify-center shrink-0">
+                                            <i data-lucide="phone" class="w-5 h-5"></i>
+                                        </div>
+                                        <div>
+                                            <p class="text-xs text-gray-500 font-medium">Phone / WhatsApp</p>
+                                            <a href="tel:+923000000000" class="text-sm font-semibold text-[#123B32] dark:text-[#D6B56D] hover:underline">+92 300 0000000</a>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-center gap-4">
+                                        <div class="w-12 h-12 rounded-xl bg-[#123B32]/10 dark:bg-[#D6B56D]/10 text-[#123B32] dark:text-[#D6B56D] flex items-center justify-center shrink-0">
+                                            <i data-lucide="map-pin" class="w-5 h-5"></i>
+                                        </div>
+                                        <div>
+                                            <p class="text-xs text-gray-500 font-medium">Location</p>
+                                            <p class="text-sm font-semibold text-[#123B32] dark:text-white">Lahore, Pakistan</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-center gap-4">
+                                        <div class="w-12 h-12 rounded-xl bg-[#123B32]/10 dark:bg-[#D6B56D]/10 text-[#123B32] dark:text-[#D6B56D] flex items-center justify-center shrink-0">
+                                            <i data-lucide="graduation-cap" class="w-5 h-5"></i>
+                                        </div>
+                                        <div>
+                                            <p class="text-xs text-gray-500 font-medium">Institution</p>
+                                            <p class="text-sm font-semibold text-[#123B32] dark:text-white">The University of Lahore</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Contact Form Column -->
+                        <div class="lg:col-span-7">
+                            <form id="contact-form" onsubmit="handleContactSubmit(event)" class="glass-card p-8 rounded-3xl shadow-sm space-y-6 border border-[#123B32]/10 dark:border-[#D6B56D]/10">
+                                <h3 class="text-2xl font-bold text-[#123B32] dark:text-white">Send a Message</h3>
+                                
+                                <div id="form-feedback" class="hidden p-4 rounded-xl text-sm font-medium"></div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div class="space-y-1.5">
+                                        <label for="name" class="block text-xs font-semibold text-gray-600 dark:text-gray-300">Your Name *</label>
+                                        <input type="text" id="name" required class="w-full px-4 py-3 rounded-xl bg-white dark:bg-[#101916] border border-gray-300 dark:border-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-[#123B32] dark:focus:ring-[#D6B56D]">
+                                    </div>
+                                    <div class="space-y-1.5">
+                                        <label for="email" class="block text-xs font-semibold text-gray-600 dark:text-gray-300">Your Email *</label>
+                                        <input type="email" id="email" required class="w-full px-4 py-3 rounded-xl bg-white dark:bg-[#101916] border border-gray-300 dark:border-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-[#123B32] dark:focus:ring-[#D6B56D]">
+                                    </div>
+                                </div>
+
+                                <div class="space-y-1.5">
+                                    <label for="subject" class="block text-xs font-semibold text-gray-600 dark:text-gray-300">Subject *</label>
+                                    <input type="text" id="subject" required class="w-full px-4 py-3 rounded-xl bg-white dark:bg-[#101916] border border-gray-300 dark:border-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-[#123B32] dark:focus:ring-[#D6B56D]">
+                                </div>
+
+                                <div class="space-y-1.5">
+                                    <label for="message" class="block text-xs font-semibold text-gray-600 dark:text-gray-300">Message *</label>
+                                    <textarea id="message" rows="4" required class="w-full px-4 py-3 rounded-xl bg-white dark:bg-[#101916] border border-gray-300 dark:border-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-[#123B32] dark:focus:ring-[#D6B56D]"></textarea>
+                                </div>
+
+                                <button type="submit" class="w-full py-3.5 rounded-xl bg-[#123B32] dark:bg-[#D6B56D] text-white dark:text-[#101916] font-semibold text-sm shadow-md hover:opacity-95 transition-all flex items-center justify-center gap-2">
+                                    <i data-lucide="send" class="w-4 h-4"></i>
+                                    <span>Send Message via Mailto Fallback</span>
+                                </button>
+                                <p class="text-xs text-gray-500 text-center">Note: This opens your default email client with pre-filled details.</p>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-[#123B32] text-white dark:bg-[#0c1411] border-t border-[#123B32]/20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+                    <div>
+                        <h3 class="text-lg font-bold tracking-tight">Muhammad Hamd Sultan</h3>
+                        <p class="text-xs text-emerald-300 mt-1">BS Artificial Intelligence • The University of Lahore</p>
+                    </div>
+                    
+                    <div class="flex flex-wrap justify-center gap-6 text-sm">
+                        <a href="#home" class="hover:text-[#D6B56D] transition-colors">Home</a>
+                        <a href="#about" class="hover:text-[#D6B56D] transition-colors">About</a>
+                        <a href="#skills" class="hover:text-[#D6B56D] transition-colors">Skills</a>
+                        <a href="#experience" class="hover:text-[#D6B56D] transition-colors">Experience</a>
+                        <a href="#contact" class="hover:text-[#D6B56D] transition-colors">Contact</a>
+                    </div>
+
+                    <div class="text-right md:text-right text-xs text-emerald-300/80">
+                        &copy; <span id="current-year"></span> Muhammad Hamd Sultan. All rights reserved.
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- CV Download Modal -->
+    <div id="cv-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+        <div class="glass-card max-w-md w-full p-6 rounded-3xl shadow-2xl relative space-y-4 border border-[#123B32]/20 dark:border-[#D6B56D]/30 bg-white dark:bg-[#182622]">
+            <div class="flex items-center justify-between">
+                <h3 class="text-xl font-bold text-[#123B32] dark:text-white">Download / View CV</h3>
+                <button onclick="closeCvModal()" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-500">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <p class="text-sm text-gray-600 dark:text-gray-300">
+                Choose how you would like to access Muhammad Hamd Sultan's professional CV:
+            </p>
+            <div class="space-y-3 pt-2">
+                <button onclick="window.print()" class="w-full py-3 rounded-xl bg-[#123B32] dark:bg-[#D6B56D] text-white dark:text-[#101916] font-semibold text-sm flex items-center justify-center gap-2 shadow-md">
+                    <i data-lucide="printer" class="w-4 h-4"></i>
+                    <span>Print / Save as PDF</span>
+                </button>
+                <div class="p-4 rounded-xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800/50 text-xs text-amber-800 dark:text-amber-300">
+                    ℹ️ To upload a custom CV PDF file, place your document in the project directory or connect cloud storage.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Certificate Modal -->
+    <div id="cert-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+        <div class="glass-card max-w-lg w-full p-6 rounded-3xl shadow-2xl relative space-y-4 border border-[#123B32]/20 dark:border-[#D6B56D]/30 bg-white dark:bg-[#182622]">
+            <div class="flex items-center justify-between">
+                <h3 class="text-xl font-bold text-[#123B32] dark:text-white">Add Certificate or Award</h3>
+                <button onclick="closeAddCertModal()" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-500">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            
+            <form id="cert-form" onsubmit="handleCertSubmit(event)" class="space-y-4">
+                <div class="space-y-1">
+                    <label class="block text-xs font-semibold text-gray-600 dark:text-gray-300">Certificate Title *</label>
+                    <input type="text" id="cert-title" required class="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-[#101916] border border-gray-300 dark:border-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-[#123B32]">
+                </div>
+                <div class="space-y-1">
+                    <label class="block text-xs font-semibold text-gray-600 dark:text-gray-300">Issuing Organization *</label>
+                    <input type="text" id="cert-org" required class="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-[#101916] border border-gray-300 dark:border-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-[#123B32]">
+                </div>
+                <div class="space-y-1">
+                    <label class="block text-xs font-semibold text-gray-600 dark:text-gray-300">Date / Year *</label>
+                    <input type="text" id="cert-date" required placeholder="e.g. 2025" class="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-[#101916] border border-gray-300 dark:border-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-[#123B32]">
+                </div>
+                <div class="space-y-1">
+                    <label class="block text-xs font-semibold text-gray-600 dark:text-gray-300">Description *</label>
+                    <textarea id="cert-desc" rows="3" required class="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-[#101916] border border-gray-300 dark:border-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-[#123B32]"></textarea>
+                </div>
+                <button type="submit" class="w-full py-3 rounded-xl bg-[#123B32] dark:bg-[#D6B56D] text-white dark:text-[#101916] font-semibold text-sm shadow-md">
+                    Save Certificate
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Set current year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Theme Toggle Logic
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        // Check saved theme or system preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            htmlElement.classList.toggle('dark');
+            if (htmlElement.classList.contains('dark')) {
+                localStorage.setItem('theme', 'dark');
+            } else {
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // CV Modal Control
+        function openCvModal() {
+            document.getElementById('cv-modal').classList.remove('hidden');
+            document.getElementById('cv-modal').classList.add('flex');
+        }
+        function closeCvModal() {
+            document.getElementById('cv-modal').classList.add('hidden');
+            document.getElementById('cv-modal').classList.remove('flex');
+        }
+
+        // Add Certificate Modal Control
+        function openAddCertModal() {
+            document.getElementById('cert-modal').classList.remove('hidden');
+            document.getElementById('cert-modal').classList.add('flex');
+        }
+        function closeAddCertModal() {
+            document.getElementById('cert-modal').classList.add('hidden');
+            document.getElementById('cert-modal').classList.remove('flex');
+        }
+
+        // Handle Dynamic Certificates
+        let certificates = [
+            {
+                title: "FSc Pre-Medical Completion",
+                org: "KIPS College, Thokar Campus, Lahore",
+                date: "2025",
+                desc: "Successfully completed intermediate education with comprehensive coursework in natural sciences."
+            }
+        ];
+
+        function renderCertificates() {
+            const grid = document.getElementById('certificates-grid');
+            grid.innerHTML = '';
+            certificates.forEach(cert => {
+                const card = document.createElement('div');
+                card.className = 'glass-card p-6 rounded-2xl shadow-sm border border-[#123B32]/10 dark:border-[#D6B56D]/10 flex flex-col justify-between';
+                card.innerHTML = `
+                    <div>
+                        <div class="w-10 h-10 rounded-lg bg-[#D6B56D]/20 text-[#123B32] dark:text-[#D6B56D] flex items-center justify-center mb-4">
+                            <i data-lucide="award" class="w-5 h-5"></i>
+                        </div>
+                        <h3 class="font-bold text-lg mb-1 text-[#123B32] dark:text-white">${escapeHtml(cert.title)}</h3>
+                        <p class="text-xs text-[#1D5C4A] dark:text-emerald-300 font-medium mb-3">${escapeHtml(cert.org)} • ${escapeHtml(cert.date)}</p>
+                        <p class="text-sm text-gray-600 dark:text-gray-300">${escapeHtml(cert.desc)}</p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700 flex items-center justify-between">
+                        <span class="text-xs text-gray-500">Verified Record</span>
+                        <span class="text-xs font-semibold text-[#123B32] dark:text-[#D6B56D]">Official</span>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+            lucide.createIcons();
+        }
+
+        function handleCertSubmit(event) {
+            event.preventDefault();
+            const title = document.getElementById('cert-title').value;
+            const org = document.getElementById('cert-org').value;
+            const date = document.getElementById('cert-date').value;
+            const desc = document.getElementById('cert-desc').value;
+
+            certificates.push({ title, org, date, desc });
+            renderCertificates();
+            document.getElementById('cert-form').reset();
+            closeAddCertModal();
+        }
+
+        function escapeHtml(text) {
+            const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
+            return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+        }
+
+        // Contact Form Submission (Mailto Fallback)
+        function handleContactSubmit(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+
+            const mailtoLink = `mailto:hamdsultan.ai@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`)}`;
+            
+            const feedback = document.getElementById('form-feedback');
+            feedback.className = 'p-4 rounded-xl text-sm font-medium bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800';
+            feedback.textContent = 'Opening your email client to send message to Muhammad Hamd Sultan...';
+            feedback.classList.remove('hidden');
+
+            window.location.href = mailtoLink;
+        }
+
+        // AI Constellation Background Canvas Animation
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let width, height;
+        let particles = [];
+
+        function resizeCanvas() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.6;
+                this.vy = (Math.random() - 0.5) * 0.6;
+                this.radius = Math.random() * 2 + 1;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = htmlElement.classList.contains('dark') ? 'rgba(214, 181, 109, 0.4)' : 'rgba(18, 59, 50, 0.3)';
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < 50; i++) {
+            particles.push(new Particle());
+        }
+
+        function animateCanvas() {
+            ctx.clearRect(0, 0, width, height);
+            
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < 120) {
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        const alpha = (1 - (dist / 120)) * 0.2;
+                        ctx.strokeStyle = htmlElement.classList.contains('dark') ? `rgba(214, 181, 109, ${alpha})` : `rgba(18, 59, 50, ${alpha})`;
+                        ctx.lineWidth = 0.8;
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animateCanvas);
+        }
+
+        animateCanvas();
+    </script>
+</body>
+</html>
